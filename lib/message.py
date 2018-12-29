@@ -15,8 +15,8 @@ class Message:
         self.user = User()
 
     def __str__(self):
-        return 'geo: {}, city: {}, date: {}, text: {}, like: {}, lastName: {}, firstName: {}'\
-            .format(self.geo, self.city, self.date, self.text, self.like, self.lastName, self.firstName)
+        return 'geo: {}, city: {}, date: {}, text: {}, like: {}, user: {}'\
+            .format(self.geo, self.city, self.date, self.text, self.like, self.user)
 
     @staticmethod
     # Create the probability from a sample of twitter data
@@ -24,8 +24,8 @@ class Message:
         total_message_sample = 47508
         # From midnight to 23H59
         numbers_message_sample__by_hour = [2208, 2009, 1917, 1878, 1842, 1531, 1549, 1463,
-                                         1192, 1102, 1188, 1132, 1203, 1415, 1497, 1946,
-                                         2067, 2215, 2665, 4438, 3358, 2759, 2486, 2448]
+                                           1192, 1102, 1188, 1132, 1203, 1415, 1497, 1946,
+                                           2067, 2215, 2665, 4438, 3358, 2759, 2486, 2448]
         return [i / total_message_sample for i in numbers_message_sample__by_hour]
 
     def add_date_to_message(self, total_days, date_begin):
