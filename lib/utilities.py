@@ -17,7 +17,7 @@ def list_repartition(a_list):
 # Generate bulk to insert in elasticsearch
 def generate_bulk(json_list):
     # Put json bulk in a file
-    with open("result.json", "w") as outfile:
+    with open("hashtags.json", "w") as outfile:
         count = 0
         for i in json_list:
             outfile.write(json.dumps({"index": {"_index": "test", "_type": "_doc", "_id": count}}))
