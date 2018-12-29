@@ -15,14 +15,15 @@ def list_repartition(a_list):
 
 
 # Generate bulk to insert in elasticsearch
-def generate_bulk(json_list):
+def generate_bulk(messages):
     # Put json bulk in a file
-    with open("hashtags.json", "w") as outfile:
+    with open("messages.json", "w") as outfile:
         count = 0
-        for i in json_list:
+        for i in messages:
             outfile.write(json.dumps({"index": {"_index": "test", "_type": "_doc", "_id": count}}))
             outfile.write("\n")
-            outfile.write(json.dumps({"date": i.isoformat()}))
+            outfile.write(json.dumps({"date": i.date.isoformat(),
+                                      "user": {"firstName": i.user.firstName, "lastName": i.user.lastName, "prob": i.user.probability}}))
             outfile.write("\n")
             count += 1
 

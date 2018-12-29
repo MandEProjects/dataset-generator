@@ -1,4 +1,7 @@
 import random
+import numpy as np
+import matplotlib.pyplot as plt
+from lib import utilities
 
 
 class User:
@@ -8,6 +11,7 @@ class User:
         self.firstName = str()
         self.age = int()
         self.followers = int()
+        self.probability = int()
 
     def __str__(self):
         return 'firstName: {}, lastName: {}, age: {}, followers: {}'\
@@ -17,9 +21,9 @@ class User:
     # Create the users
     def creation_users(nbr_users, list_users=[]):
         with open("datasets/firstName.txt") as f:
-            first_names = f.readlines()
+            first_names = f.read().split('\n')
         with open("datasets/lastName.txt") as f:
-            last_names = f.readlines()
+            last_names = f.read().split('\n')
 
         peoples = list()
         check = set()
@@ -40,3 +44,38 @@ class User:
             peoples.append(pple)
 
         return peoples
+
+    @staticmethod
+    # Create gaussian distribution for the recurrence of messages by user
+    def probability_message_user(size):
+        mu, sigma = 0, 0.5  # mean and standard deviation
+        s = np.random.normal(mu, sigma, 1000000)
+
+        ratio = (max(s) - min(s))/size
+        minus = min(s)
+        last_number = True
+        list_active = []
+        count = 0
+        for i in sorted(s):
+            if i <= minus + ratio:
+                count += 1
+                last_number = False
+            else:
+                while i > minus + ratio:
+                    minus += ratio
+                    list_active.append(count)
+                    count = 0
+                count = 1
+                last_number = True
+
+        if len(list_active) < size:
+            list_active.append(count)
+        elif last_number:
+            list_active[len(list_active) - 1] += 1
+
+        total = len(s)
+
+        return [i/total for i in list_active]
+
+
+# count, bins, ignored = plt.hist(s, 100, density=True)
