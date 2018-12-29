@@ -1,0 +1,10 @@
+# Date : starting date for the data set of tweets.
+# Example : YYYY-MM-DD
+date : 2018-10-08
+
+# Duration of the data set
+days : 10
+
+# Number of tweets
+tweet_number : 100000
+
