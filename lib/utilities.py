@@ -1,6 +1,6 @@
 import json
 import random
-from people import People
+from lib import people
 
 
 # This function count the recurrence of term in a list a print ordered dict.
@@ -16,8 +16,8 @@ def list_repartition(a_list):
         print("%s: %s" % (key, repartition[key]))
 
 
+# Create the probability from a sample of twitter data
 def prob_tweets_by_hour():
-    # Create the probability from a sample of twitter data
     total_tweets_sample = 47508
     # From midnight to 23H59
     numbers_tweet_sample__by_hour = [2208, 2009, 1917, 1878, 1842, 1531, 1549, 1463,
@@ -26,6 +26,7 @@ def prob_tweets_by_hour():
     return [i / total_tweets_sample for i in numbers_tweet_sample__by_hour]
 
 
+# Generate burk to insert in elasticsearch
 def generate_burk(json_list):
     # Put json burk in a file
     with open("result.json", "w") as outfile:
@@ -38,23 +39,32 @@ def generate_burk(json_list):
             count += 1
 
 
-def creation_users(nbr_users):
-    with open("../firstName.txt") as f:
+# Create the users
+def creation_users(nbr_users, list_users=[]):
+    with open("firstName.txt") as f:
         first_names = f.readlines()
-    with open("../lastName.txt") as f:
+    with open("lastName.txt") as f:
         last_names = f.readlines()
 
     peoples = list()
     check = set()
 
-    for i in range(nbr_users):
-        pple = People()
+    for i in list_users:
+        pple = people.People()
+        pple.firstName, pple.lastName = i
+        peoples.append(pple)
+        check.add((pple.firstName, pple.lastName))
+
+    for i in range(nbr_users - len(list_users)):
+        pple = people.People()
         pple.firstName = first_names[random.randint(0, len(first_names) - 1)]
         pple.lastName = last_names[random.randint(0, len(last_names) - 1)]
         while (pple.firstName, pple.lastName) in check:
-            pple.lastName = last_names[random.randint(0, len(last_names))]
+            pple.lastName = last_names[random.randint(0, len(last_names) - 1)]
         check.add((pple.firstName, pple.lastName))
         peoples.append(pple)
+
+    print(len(peoples))
     return peoples
 
 

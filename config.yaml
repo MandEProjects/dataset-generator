@@ -11,3 +11,10 @@ tweet_number : 100000
 # Number of user
 number_user : 1000
 
+# Add users
+names :
+  - !!python/tuple ['Shay','Banon']
+  - !!python/tuple ['Melvyn','Penis']
+  - !!python/tuple ['Edwyn','BG']
+
+

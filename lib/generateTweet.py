@@ -14,6 +14,7 @@ class GenerateTweet:
             self.total_days = yaml_config.get('days')
             self.number_tweet = yaml_config.get('tweet_number')
             self.number_user = yaml_config.get('number_user')
+            self.users = yaml_config.get('names')
         except:
             print("Verify your yaml file")
             exit()
@@ -33,10 +34,13 @@ class GenerateTweet:
     def generate_tweet(self):
         tweet_list = list()
 
+        print(len(self.users))
+        print(self.users)
+        utilities.creation_users(self.number_tweet, self.users)
+
         for i in range(self.number_tweet):
             tw = tweet.Tweet()
             tw.date = self.tweet_add_date()
-            tw.firstname
             tweet_list.append(tw)
 
         return tweet_list
