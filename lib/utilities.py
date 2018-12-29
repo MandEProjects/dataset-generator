@@ -1,4 +1,5 @@
 import json
+from scipy.stats import truncnorm
 
 
 # This function count the recurrence of term in a list a print ordered dict.
@@ -27,5 +28,10 @@ def generate_bulk(messages):
             outfile.write("\n")
             count += 1
 
+
+# Make the function truncnorm more intuitive
+# Truncnorm doc: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.truncnorm.html
+def get_truncated_normal(mean=0, sd=1, low=0, upp=10):
+    return truncnorm((low - mean) / sd, (upp - mean) / sd, loc=mean, scale=sd)
 
 

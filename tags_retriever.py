@@ -1,3 +1,6 @@
+from lib.utilities import get_truncated_normal
+
+"""
 import requests
 import json
 
@@ -27,3 +30,20 @@ json_tags["functionbeat"] = 48765
 
 with open("hashtags.json", "w") as outfile:
     outfile.write(json.dumps(json_tags))
+"""
+
+
+X0 = get_truncated_normal(mean=2, sd=0.5, low=1, upp=5)
+X1 = get_truncated_normal(mean=2, sd=1, low=1, upp=5)
+X2 = get_truncated_normal(mean=3., sd=1, low=1, upp=5)
+X3 = get_truncated_normal(mean=4, sd=1, low=1, upp=5)
+
+print(X1.rvs(1))
+
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots(4, sharex=True)
+ax[0].hist(X0.rvs(10000))
+ax[1].hist(X1.rvs(10000))
+ax[2].hist(X2.rvs(10000))
+ax[3].hist(X3.rvs(10000))
+plt.show()
