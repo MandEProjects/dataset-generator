@@ -16,9 +16,9 @@ class User:
     @staticmethod
     # Create the users
     def creation_users(nbr_users, list_users=[]):
-        with open("firstName.txt") as f:
+        with open("datasets/firstName.txt") as f:
             first_names = f.readlines()
-        with open("lastName.txt") as f:
+        with open("datasets/lastName.txt") as f:
             last_names = f.readlines()
 
         peoples = list()

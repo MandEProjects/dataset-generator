@@ -1,8 +1,17 @@
 from lib.message import Message
+import yaml
 
 
 class YamlParser:
-    def __init__(self, yaml_config):
+    def __init__(self):
+        # Open yaml file
+        try:
+            yaml_config = yaml.load(open('config/config.yaml'))
+        except NameError:
+            print('Yaml file not found. Make sure there is a config.yaml in the directory.')
+            exit()
+
+
         try:
             self.date_begin = yaml_config.get('date')
         except TypeError:
