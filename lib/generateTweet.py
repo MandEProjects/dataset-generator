@@ -36,4 +36,8 @@ class GenerateTweet:
         for i in range(self.number_tweet):
             tw = tweet.Tweet()
             tw.date = self.tweet_add_date()
+            tw.firstname
+            tweet_list.append(tw)
+
+        return tweet_list
 

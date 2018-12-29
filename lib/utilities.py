@@ -1,4 +1,6 @@
 import json
+import random
+from people import People
 
 
 # This function count the recurrence of term in a list a print ordered dict.
@@ -34,3 +36,25 @@ def generate_burk(json_list):
             outfile.write(json.dumps({"date": i.isoformat()}))
             outfile.write("\n")
             count += 1
+
+
+def creation_users(nbr_users):
+    with open("../firstName.txt") as f:
+        first_names = f.readlines()
+    with open("../lastName.txt") as f:
+        last_names = f.readlines()
+
+    peoples = list()
+    check = set()
+
+    for i in range(nbr_users):
+        pple = People()
+        pple.firstName = first_names[random.randint(0, len(first_names) - 1)]
+        pple.lastName = last_names[random.randint(0, len(last_names) - 1)]
+        while (pple.firstName, pple.lastName) in check:
+            pple.lastName = last_names[random.randint(0, len(last_names))]
+        check.add((pple.firstName, pple.lastName))
+        peoples.append(pple)
+    return peoples
+
+
