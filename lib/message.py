@@ -1,6 +1,7 @@
 from lib.user import User
 from numpy import random
 from datetime import datetime, timedelta
+from lib.utilities import get_truncated_normal
 
 
 class Message:
@@ -9,7 +10,7 @@ class Message:
         self.geo = tuple
         self.city = str()
         self.date = None
-        self.text = str()
+        self.subjects = []
         self.like = int()
         self.user = User()
 
@@ -38,5 +39,10 @@ class Message:
         date = datetime(date.year, date.month, date.day) + timedelta(hours=random_numbers, minutes=random_minute,
                                                                      seconds=random_second)
         return date
+
+    def add_subjects_to_message(self):
+        distribution_nb_of_topics = get_truncated_normal(mean=4.8, sd=1.2, low=1, upp=7)
+
+
 
 
