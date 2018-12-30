@@ -8,11 +8,10 @@ from lib.distributionsManager import DistributionsManager
 
 import time
 
-dataset_manager = DatasetsManager()
-distributions_manager = DistributionsManager()
-
 t1 = time.time()
 yp = YamlParser()
+dataset_manager = DatasetsManager()
+distributions_manager = DistributionsManager(yaml_parser=yp)
 
 message_list = list()
 
@@ -21,7 +20,7 @@ prob_users = User.probability_message_user(yp.number_users)
 
 for i in range(yp.number_messages):
     message = Message()
-    message.date = message.add_date_to_message(yp.total_days, yp.date_begin)
+    message.date = message.add_date_to_message(yp.total_days, yp.begining_date)
     message.add_subjects_to_message(distributions_manager.number_of_subjects_distribution, dataset_manager.list_of_subjects)
     indices = int(random.choice(len(prob_users), 1, p=prob_users)[0])
     user = list_users[indices]

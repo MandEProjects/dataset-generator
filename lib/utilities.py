@@ -34,7 +34,7 @@ def generate_bulk(messages):
 
 # Make the function truncnorm more intuitive
 # Truncnorm doc: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.truncnorm.html
-def get_truncated_normal(mean=0, sd=1, lower_bound=0, upper_bound=10):
+def get_truncated_normal(mean, sd, lower_bound, upper_bound):
     return truncnorm((lower_bound - mean) / sd, (upper_bound - mean) / sd, loc=mean, scale=sd)
 
 
