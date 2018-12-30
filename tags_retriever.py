@@ -31,19 +31,29 @@ json_tags["functionbeat"] = 48765
 with open("hashtags.json", "w") as outfile:
     outfile.write(json.dumps(json_tags))
 """
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+
+lower, upper, scale = 1, 7, 1/0.70
+X = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
+data = X.rvs(10000)
+
+fig, ax = plt.subplots()
+ax.hist(data)
+plt.show()
 
 
-X0 = get_truncated_normal(mean=2, sd=0.5, low=1, upp=7)
-X1 = get_truncated_normal(mean=2, sd=1, low=1, upp=7)
-X2 = get_truncated_normal(mean=3.5, sd=1.0, low=1, upp=7)
-X3 = get_truncated_normal(mean=4.8, sd=1.2, low=1, upp=7)
+X0 = get_truncated_normal(mean=2, sd=0.5, lower_bound=1, upper_bound=7)
+X1 = get_truncated_normal(mean=2, sd=1.5, lower_bound=1, upper_bound=7)
+X2 = get_truncated_normal(mean=3.5, sd=1.0, lower_bound=1, upper_bound=7)
+X3 = get_truncated_normal(mean=5.8, sd=1.2, lower_bound=1, upper_bound=7)
 
 print(X1.rvs(1))
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots(4, sharex=True)
-ax[0].hist(X0.rvs(10000))
-ax[1].hist(X1.rvs(10000))
-ax[2].hist(X2.rvs(10000), normed=True)
-ax[3].hist(X3.rvs(10000))
+ax[0].hist(X0.rvs(500000))
+ax[1].hist(X1.rvs(500000))
+ax[2].hist(X2.rvs(500000))
+ax[3].hist(X3.rvs(500000))
 plt.show()

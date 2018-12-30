@@ -40,8 +40,11 @@ class Message:
                                                                      seconds=random_second)
         return date
 
-    def add_subjects_to_message(self):
-        distribution_nb_of_topics = get_truncated_normal(mean=4.8, sd=1.2, low=1, upp=7)
+    def add_subjects_to_message(self, number_of_subjects_distributions, list_of_subjects):
+        number_of_subjects = int(round(number_of_subjects_distributions.rvs(1)[0]))
+        subjects = list(random.choice(list_of_subjects, number_of_subjects))
+        self.subjects = subjects
+
 
 
 

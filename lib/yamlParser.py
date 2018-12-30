@@ -10,8 +10,6 @@ class YamlParser:
         except NameError:
             print('Yaml file not found. Make sure there is a config.yaml in the directory.')
             exit()
-
-
         try:
             self.date_begin = yaml_config.get('date')
         except TypeError:
