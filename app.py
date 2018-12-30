@@ -19,7 +19,6 @@ message_list = list()
 list_users = User.creation_users(yp.number_users, yp.users)
 prob_users = User.probability_message_user(yp.number_users)
 
-
 for i in range(yp.number_messages):
     message = Message()
     message.date = message.add_date_to_message(yp.total_days, yp.date_begin)

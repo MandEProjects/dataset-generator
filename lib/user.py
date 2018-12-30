@@ -51,31 +51,20 @@ class User:
         mu, sigma = 0, 0.5  # mean and standard deviation
         s = np.random.normal(mu, sigma, 1000000)
 
-        ratio = (max(s) - min(s))/size
         minus = min(s)
-        last_number = True
-        list_active = []
-        count = 0
-        for i in sorted(s):
-            if i <= minus + ratio:
-                count += 1
-                last_number = False
-            else:
-                while i > minus + ratio:
-                    minus += ratio
-                    list_active.append(count)
-                    count = 0
-                count = 1
-                last_number = True
+        maximum = max(s)
 
-        if len(list_active) < size:
-            list_active.append(count)
-        elif last_number:
-            list_active[len(list_active) - 1] += 1
+        ratio = (maximum - minus) / size
+
+        probability = [0] * size
+
+        for i in s:
+            indices = int(round((maximum - i)/ratio))
+            probability[indices - 1] += 1
 
         total = len(s)
 
-        return [i/total for i in list_active]
+        return [i/total for i in probability]
 
 
 # count, bins, ignored = plt.hist(s, 100, density=True)
