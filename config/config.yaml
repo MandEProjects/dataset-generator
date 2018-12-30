@@ -6,7 +6,7 @@ date : 2018-10-08
 days : 30
 
 # Number of tweets
-tweet_number : 500000
+tweet_number : 200000
 
 # Number of user
 number_user : 1000

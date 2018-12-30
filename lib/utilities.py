@@ -25,9 +25,11 @@ def generate_bulk(messages):
             outfile.write(json.dumps({"index": {"_index": "test", "_type": "_doc"}}))
             outfile.write("\n")
             outfile.write(json.dumps({"date": i.date.isoformat(),
-                                      "number_of_subjects": len(i.subjects),
-                                      "subjects": i.subjects,
-                                      "user": {"name": i.user.firstName + " " + i.user.lastName, "prob": i.user.probability}}))
+                                      "user": {"name": i.user.firstName + " " + i.user.lastName,
+                                               "prob": i.user.probability,
+                                               "favorite_subjects": i.user.favorite_subjects,
+                                               "number_of_favorite_subjects": i.user.number_of_favorite_subjects,
+                                               }}))
             outfile.write("\n")
             count += 1
 

@@ -4,7 +4,7 @@ from lib.utilities import get_truncated_normal
 class DistributionsManager:
 
     def __init__(self, yaml_parser):
-        self.number_of_subjects_distribution = self.build_number_of_subjects_distribution(yaml_parser)
+        self.favorite_subjects_per_user_distribution = self.build_number_of_subjects_distribution(yaml_parser)
 
     @staticmethod
     def build_number_of_subjects_distribution(yaml_parser):
@@ -27,3 +27,5 @@ class DistributionsManager:
             else:
                 upper_bound = yaml_parser.number_of_subjects_per_user_upper_bound
             return get_truncated_normal(mean=mean, sd=sd, lower_bound=lower_bound, upper_bound=upper_bound)
+
+

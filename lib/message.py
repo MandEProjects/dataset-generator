@@ -12,7 +12,7 @@ class Message:
         self.date = None
         self.subjects = []
         self.like = int()
-        self.user = User()
+        self.user = None
 
     def __str__(self):
         return 'geo: {}, city: {}, date: {}, text: {}, like: {}, user: {}'\
