@@ -3,10 +3,10 @@
 date : 2018-10-08
 
 # Duration of the data set
-days : 10
+days : 30
 
 # Number of tweets
-tweet_number : 1000000
+tweet_number : 500000
 
 # Number of user
 number_user : 1000

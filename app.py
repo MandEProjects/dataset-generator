@@ -9,9 +9,10 @@ t1 = time.time()
 yp = YamlParser()
 
 message_list = list()
-
 list_users = User.creation_users(yp.number_users, yp.users)
 prob_users = User.probability_message_user(yp.number_users)
+
+# random.choice(len(prob_users), 1, p=prob_users)
 
 for i in range(yp.number_messages):
     message = Message()
@@ -23,4 +24,6 @@ for i in range(yp.number_messages):
     message_list.append(message)
 
 utilities.generate_bulk(message_list)
+
 print(time.time() - t1)
+
