@@ -25,6 +25,7 @@ for i in range(yp.number_messages):
     user = list_users[indices]
     user.probability = prob_users[indices]
     message.user = user
+    message.add_subjects_to_message(distributions_manager.subjects_distribution, datasets_manager, user.favorite_subjects)
     message_list.append(message)
 
 utilities.generate_bulk(message_list)

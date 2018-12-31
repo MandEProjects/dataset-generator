@@ -10,7 +10,13 @@ class DatasetsManager:
             self.lastName = f.read().split('\n')
         with open("datasets/subjects.json") as f:
             self.subjects = json.load(f)
-            self.list_of_subjects = [subject for subject in self.subjects]
+            subjects = []
+            subjects_iterations = []
+            for subject in self.subjects:
+                subjects.append(subject)
+                subjects_iterations.append(self.subjects[subject])
+            self.list_of_subjects = subjects
+            self.list_of_subjects_iterations = subjects_iterations
 
 
 

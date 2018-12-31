@@ -2,6 +2,7 @@ from lib.user import User
 from numpy import random
 from datetime import datetime, timedelta
 from lib.utilities import get_truncated_normal
+import time
 
 
 class Message:
@@ -13,6 +14,7 @@ class Message:
         self.subjects = []
         self.like = int()
         self.user = None
+        self.number_of_subjects = 0
 
     def __str__(self):
         return 'geo: {}, city: {}, date: {}, text: {}, like: {}, user: {}'\
@@ -40,10 +42,14 @@ class Message:
                                                                      seconds=random_second)
         return date
 
-    def add_subjects_to_message(self, number_of_subjects_distributions, list_of_subjects):
+    def add_subjects_to_message(self, number_of_subjects_distributions, dataset_manager, favorite_user_subjects):
+        total_sum = sum(dataset_manager.list_of_subjects_iterations)
+        list_of_subject_probabilities = [iteration/total_sum for iteration in
+                                         dataset_manager.list_of_subjects_iterations]
         number_of_subjects = int(round(number_of_subjects_distributions.rvs(1)[0]))
-        subjects = list(random.choice(list_of_subjects, number_of_subjects))
+        subjects = list(random.choice(dataset_manager.list_of_subjects, number_of_subjects, p=list_of_subject_probabilities))
         self.subjects = subjects
+        self.number_of_subjects = len(subjects)
 
 
 

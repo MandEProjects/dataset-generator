@@ -34,13 +34,12 @@ with open("hashtags.json", "w") as outfile:
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-lower, upper, scale = 1, 7, 1/0.70
-X = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
-data = X.rvs(10000)
-
-fig, ax = plt.subplots()
-ax.hist(data)
-plt.show()
+lower, upper, scale = 1, 10, 1
+X4 = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
+lower, upper, scale = 1, 10, 2
+X5 = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
+lower, upper, scale = 1, 10, 1.6
+X6 = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
 
 
 X0 = get_truncated_normal(mean=2, sd=0.5, lower_bound=1, upper_bound=7)
@@ -51,9 +50,12 @@ X3 = get_truncated_normal(mean=5.8, sd=1.2, lower_bound=1, upper_bound=7)
 print(X1.rvs(1))
 
 import matplotlib.pyplot as plt
-fig, ax = plt.subplots(4, sharex=True)
-ax[0].hist(X0.rvs(500000))
-ax[1].hist(X1.rvs(500000))
-ax[2].hist(X2.rvs(500000))
-ax[3].hist(X3.rvs(500000))
+fig, ax = plt.subplots(3, sharex=True)
+#ax[0].hist(X0.rvs(500000))
+#ax[1].hist(X1.rvs(500000))
+#ax[2].hist(X2.rvs(500000))
+#ax[3].hist(X3.rvs(500000))
+ax[0].hist(X4.rvs(200000))
+ax[1].hist(X5.rvs(200000))
+ax[2].hist(X6.rvs(200000))
 plt.show()

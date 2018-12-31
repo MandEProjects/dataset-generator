@@ -17,7 +17,7 @@ names :
 
 distributions:
   # Configure the distribution of the number of subjects to allocate to a specific user
-  number_of_subjects_per_user_distribution:
+  favorite_subjects_per_user_distribution:
     # Accepted values for type are: normal | exponential
     # For a normal distribution the parameters that need to be defined are the following: mean, sd, lower_bound, upper_bound
     # For a exponential distribution the parameters that need to be defined are the following: scale, lower_bound, upper_bound
@@ -27,3 +27,11 @@ distributions:
       sd: 1.2
       lower_bound: 1
       upper_bound: 7
+
+  subjects_distribution:
+    # Accepted values for type are: normal | exponential
+    type: "exponential"
+    params:
+      scale: 2
+      lower_bound: 1
+      upper_bound: 10
