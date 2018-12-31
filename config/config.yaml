@@ -11,6 +11,15 @@ message_number : 200000
 # Number of user
 number_user : 1000
 
+# Name Index
+index_name: 'messages'
+
+# Do you want to index it or have it on a file
+index: false
+
+# Override the index
+override: false
+
 # Add users
 names :
   - !!python/tuple ['Shay','Banon']

@@ -8,7 +8,7 @@ import time
 class Message:
 
     def __init__(self):
-        self.geo = tuple
+        self.geo = tuple()
         self.city = str()
         self.date = None
         self.subjects = []
@@ -16,9 +16,17 @@ class Message:
         self.user = None
         self.number_of_subjects = 0
 
-    def __str__(self):
-        return 'geo: {}, city: {}, date: {}, text: {}, like: {}, user: {}'\
-            .format(self.geo, self.city, self.date, self.text, self.like, self.user)
+    def __dict__(self):
+        dic = {
+            "city": self.city,
+            "number_of_subjects": self.number_of_subjects,
+            "geo": [i for i in self.geo],
+            "subjects": self.subjects,
+            "like": self.like,
+            "date": self.date.isoformat()
+        }
+        dic.update(self.user.__dict__)
+        return dic
 
     @staticmethod
     # Create the probability from a sample of twitter data
