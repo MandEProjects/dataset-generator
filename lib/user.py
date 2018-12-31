@@ -2,6 +2,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from lib import utilities
+from lib import static
 
 
 class User:
@@ -32,36 +33,35 @@ class User:
             list_users = []
         else:
             list_users = yp.users
-        with open("datasets/firstName.txt") as f:
+        with open(static.FIRST_NAME) as f:
             first_names = f.read().split('\n')
-        with open("datasets/lastName.txt") as f:
+        with open(static.LAST_NAME) as f:
             last_names = f.read().split('\n')
 
         peoples = list()
         check = set()
 
         for i in list_users:
-            pple = User(distributions_manager, datasets_manager)
-            pple.firstName, pple.lastName = i
-            peoples.append(pple)
-            check.add((pple.firstName, pple.lastName))
+            people = User(distributions_manager, datasets_manager)
+            people.firstName, people.lastName = i
+            peoples.append(people)
+            check.add((people.firstName, people.lastName))
 
         for i in range(yp.number_users - len(list_users)):
-            pple = User(distributions_manager, datasets_manager)
-            pple.firstName = first_names[random.randint(0, len(first_names) - 1)]
-            pple.lastName = last_names[random.randint(0, len(last_names) - 1)]
-            while (pple.firstName, pple.lastName) in check:
-                pple.lastName = last_names[random.randint(0, len(last_names) - 1)]
-            check.add((pple.firstName, pple.lastName))
-            peoples.append(pple)
+            people = User(distributions_manager, datasets_manager)
+            people.firstName = first_names[random.randint(0, len(first_names) - 1)]
+            people.lastName = last_names[random.randint(0, len(last_names) - 1)]
+            while (people.firstName, people.lastName) in check:
+                people.lastName = last_names[random.randint(0, len(last_names) - 1)]
+            check.add((people.firstName, people.lastName))
+            peoples.append(people)
 
         return peoples
 
     @staticmethod
     # Create gaussian distribution for the recurrence of messages by user
     def probability_message_user(size):
-        mu, sigma = 0, 0.5  # mean and standard deviation
-        s = np.random.normal(mu, sigma, 1000000)
+        s = np.random.normal(static.MU, static.SIGMA, static.SIZE_GAUSSIAN)
 
         minus = min(s)
         maximum = max(s)
@@ -78,5 +78,3 @@ class User:
 
         return [i/total for i in probability]
 
-
-# count, bins, ignored = plt.hist(s, 100, density=True)

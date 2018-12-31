@@ -6,7 +6,7 @@ date : 2018-10-08
 days : 30
 
 # Number of tweets
-tweet_number : 200000
+message_number : 200000
 
 # Number of user
 number_user : 1000
@@ -21,19 +21,19 @@ distributions:
     # Accepted values for type are: normal | exponential
     # For a normal distribution the parameters that need to be defined are the following: mean, sd, lower_bound, upper_bound
     # For a exponential distribution the parameters that need to be defined are the following: scale, lower_bound, upper_bound
-    type: "normal"
+    type: "exponential"
     params:
-      mean: 4.8
-      sd: 1.2
-      lower_bound: 1
-      upper_bound: 7
+      mean: 4.7
+      sd: 'e'
+      lower_bound: 2
+      upper_bound: 'e'
 
   subjects_distribution:
     # Accepted values for type are: normal | exponential
     type: "exponential"
     params:
       scale: 2
-      lower_bound: 1
+      lower_bound: 'a'
       upper_bound: 10
 
   age_distribution:
@@ -44,6 +44,6 @@ distributions:
       upper_bound: 60
 
 message_generation:
-  granuraty: h
-  path: ''
-  delta: ''
+  granularity: 'h'
+  path: 'datasets/message_distribution.txt'
+  noise: 0.25
