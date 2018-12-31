@@ -31,6 +31,7 @@ def generate_bulk(messages):
                                                "prob": i.user.probability,
                                                "favorite_subjects": i.user.favorite_subjects,
                                                "number_of_favorite_subjects": i.user.number_of_favorite_subjects,
+                                               "age": i.user.age
                                                }}))
             outfile.write("\n")
             count += 1

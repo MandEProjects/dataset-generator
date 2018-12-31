@@ -45,7 +45,9 @@ X6 = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
 X0 = get_truncated_normal(mean=2, sd=0.5, lower_bound=1, upper_bound=7)
 X1 = get_truncated_normal(mean=2, sd=1.5, lower_bound=1, upper_bound=7)
 X2 = get_truncated_normal(mean=3.5, sd=1.0, lower_bound=1, upper_bound=7)
-X3 = get_truncated_normal(mean=5.8, sd=1.2, lower_bound=1, upper_bound=7)
+X4 = get_truncated_normal(mean=32, sd=1.8, lower_bound=20, upper_bound=60)
+X5 = get_truncated_normal(mean=35, sd=4, lower_bound=20, upper_bound=60)
+X6 = get_truncated_normal(mean=37, sd=6, lower_bound=20, upper_bound=60)
 
 print(X1.rvs(1))
 

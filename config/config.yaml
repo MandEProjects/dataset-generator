@@ -35,3 +35,10 @@ distributions:
       scale: 2
       lower_bound: 1
       upper_bound: 10
+
+  age_distribution:
+    params:
+      mean: 37
+      sd: 6
+      lower_bound: 20
+      upper_bound: 60

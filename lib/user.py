@@ -9,7 +9,7 @@ class User:
     def __init__(self, distributions_manager, datasets_manager):
         self.lastName = str()
         self.firstName = str()
-        self.age = int()
+        self.age = int(round(distributions_manager.age_distribution.rvs(1)[0]))
         self.followers = int()
         self.probability = int()
         self.favorite_subjects, self.number_of_favorite_subjects = self.define_favorite_subjects(

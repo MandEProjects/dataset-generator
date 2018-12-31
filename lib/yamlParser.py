@@ -6,6 +6,7 @@ import yaml
 class YamlParser:
 
     DISTRIBUTION_FAVORITE_SUBJECTS_PER_USER = ["exponential", "normal"]
+    DISTRIBUTION_SUBJECTS = ["exponential", "normal"]
 
     def __init__(self):
         # Open yaml file
@@ -23,6 +24,8 @@ class YamlParser:
             self.extract_data_for_favorites_subjects_per_user_prob(yaml_config)
         self.subjects_distribution, self.subjects_mean, self.subjects_sd, self.subjects_lower_bound, \
             self.subjects_upper_bound, self.subjects_scale = self.extract_data_for_subjects_prob(yaml_config)
+        self.age_mean, self.age_sd, self.age_lower_bound, self.age_upper_bound \
+            = self.extract_data_age_prob(yaml_config)
         self.prob_message_by_hour = Message.prob_message_by_hour()
 
     @staticmethod
@@ -84,7 +87,7 @@ class YamlParser:
             distribution = yaml_config.get("distributions")\
                     .get("subjects_distribution")\
                     .get("type")
-            if distribution not in self.DISTRIBUTION_FAVORITE_SUBJECTS_PER_USER:
+            if distribution not in self.DISTRIBUTION_SUBJECTS:
                 print("Incorrect distribution type for the favorite_subjects_per_user_distribution")
                 exit(422)
             mean = yaml_config.get("distributions") \
@@ -110,4 +113,27 @@ class YamlParser:
             return distribution, mean, sd, lower_bound, upper_bound, scale
         except:
             return None, None, None, None, None, None
+
+    @staticmethod
+    def extract_data_age_prob(yaml_config):
+        try:
+            mean = yaml_config.get("distributions") \
+                .get("age_distribution") \
+                .get("params") \
+                .get("mean")
+            sd = yaml_config.get("distributions") \
+                .get("age_distribution") \
+                .get("params") \
+                .get("sd")
+            upper_bound = yaml_config.get("distributions") \
+                .get("age_distribution") \
+                .get("params") \
+                .get("upper_bound")
+            lower_bound = yaml_config.get("distributions") \
+                .get("age_distribution") \
+                .get("params") \
+                .get("lower_bound")
+            return mean, sd, lower_bound, upper_bound
+        except:
+            return None, None, None, None
 

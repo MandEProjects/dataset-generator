@@ -6,6 +6,7 @@ class DistributionsManager:
     def __init__(self, yaml_parser):
         self.favorite_subjects_per_user_distribution = self.build_favorite_subjects_distribution(yaml_parser)
         self.subjects_distribution = self.build_subjects_distribution(yaml_parser)
+        self.age_distribution = self.build_age_distribution(yaml_parser)
 
     @staticmethod
     def build_favorite_subjects_distribution(yaml_parser):
@@ -79,4 +80,22 @@ class DistributionsManager:
                 upper_bound = yaml_parser.subjects_upper_bound
             return get_truncated_normal(mean, sd, lower_bound, upper_bound)
 
-
+    @staticmethod
+    def build_age_distribution(yaml_parser):
+        if yaml_parser.age_mean is None:
+            mean = 37
+        else:
+            mean = yaml_parser.age_mean
+        if yaml_parser.age_sd is None:
+            sd = 6
+        else:
+            sd = yaml_parser.age_sd
+        if yaml_parser.age_lower_bound is None:
+            lower_bound = 20
+        else:
+            lower_bound = yaml_parser.age_lower_bound
+        if yaml_parser.age_upper_bound is None:
+            upper_bound = 60
+        else:
+            upper_bound = yaml_parser.age_upper_bound
+        return get_truncated_normal(mean, sd, lower_bound, upper_bound)
