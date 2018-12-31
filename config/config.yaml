@@ -42,3 +42,8 @@ distributions:
       sd: 6
       lower_bound: 20
       upper_bound: 60
+
+message_generation:
+  granuraty: h
+  path: ''
+  delta: ''

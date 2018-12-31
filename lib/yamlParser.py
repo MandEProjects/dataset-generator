@@ -27,6 +27,7 @@ class YamlParser:
         self.age_mean, self.age_sd, self.age_lower_bound, self.age_upper_bound \
             = self.extract_data_age_prob(yaml_config)
         self.prob_message_by_hour = Message.prob_message_by_hour()
+        self.prob_by_dates = Message().prob_by_dates(self.total_days, self.begining_date)
 
     @staticmethod
     def extract_beginning_date(yaml_config):
