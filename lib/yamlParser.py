@@ -24,6 +24,7 @@ class YamlParser:
         self.subjects_distribution, self.subjects_mean, self.subjects_sd, self.subjects_lower_bound, \
             self.subjects_upper_bound, self.subjects_scale = self.extract_data_for_subjects_prob(yaml_config)
         self.prob_message_by_hour = Message.prob_message_by_hour()
+        self.prob_by_dates = Message().prob_by_dates(self.total_days, self.begining_date)
 
     @staticmethod
     def extract_beginning_date(yaml_config):

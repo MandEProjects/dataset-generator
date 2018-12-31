@@ -3,13 +3,14 @@
 date : 2018-10-08
 
 # Duration of the data set
-days : 30
+days : 60
 
 # Number of tweets
-tweet_number : 200000
+tweet_number : 300000
 
 # Number of user
 number_user : 1000
+
 
 # Add users
 names :
@@ -35,3 +36,8 @@ distributions:
       scale: 2
       lower_bound: 1
       upper_bound: 10
+
+message_generation:
+  granuraty: h
+  path: ''
+  delta: ''
