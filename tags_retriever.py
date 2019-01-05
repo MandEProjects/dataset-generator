@@ -1,4 +1,4 @@
-from lib.utilities import get_truncated_normal
+from lib.utilities import get_truncated_normal, get_truncated_exponential
 
 """
 import requests
@@ -45,9 +45,9 @@ X6 = stats.truncexpon(b=(upper-lower)/scale, loc=lower, scale=scale)
 X0 = get_truncated_normal(mean=2, sd=0.5, lower_bound=1, upper_bound=7)
 X1 = get_truncated_normal(mean=2, sd=1.5, lower_bound=1, upper_bound=7)
 X2 = get_truncated_normal(mean=3.5, sd=1.0, lower_bound=1, upper_bound=7)
-X4 = get_truncated_normal(mean=32, sd=1.8, lower_bound=20, upper_bound=60)
-X5 = get_truncated_normal(mean=35, sd=4, lower_bound=20, upper_bound=60)
-X6 = get_truncated_normal(mean=37, sd=6, lower_bound=20, upper_bound=60)
+X4 = get_truncated_normal(mean=27, sd=6, lower_bound=20, upper_bound=60, loc=40)
+X5 = get_truncated_normal(mean=37, sd=6, lower_bound=20, upper_bound=60)
+X6 = get_truncated_normal(mean=37, sd=6, lower_bound=20, upper_bound=60, loc=20)
 
 print(X1.rvs(1))
 
@@ -60,4 +60,28 @@ fig, ax = plt.subplots(3, sharex=True)
 ax[0].hist(X4.rvs(200000))
 ax[1].hist(X5.rvs(200000))
 ax[2].hist(X6.rvs(200000))
+plt.show()
+
+
+
+#load libraries
+import scipy.stats as stats
+
+#lower, upper, mu, and sigma are four parameters
+lower, upper = 0, 400000
+mu, sigma = 170000, 50000
+
+#instantiate an object X using the above four parameters,
+X = stats.truncnorm((lower - mu) / sigma, (upper - mu) / sigma, loc=mu, scale=sigma)
+
+#generate 1000 sample data
+samples = X.rvs(10000)
+
+#make a histogram for the samples
+plt.hist(samples, bins= 100,alpha=0.3,label='histogram');
+
+
+#legend
+plt.legend(loc='best')
+
 plt.show()

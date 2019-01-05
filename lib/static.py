@@ -37,6 +37,9 @@ EXPONENTIAL_DISTRIBUTION = (EXPONENTIAL, None, None, 1, 10, 2)
 # mean - sd - lower_bound - upper_bound
 AGE_DISTRIBUTION = (37, 6, 20, 60)
 
+# upper_bound, lower_bound, scale
+LIKES_DISTRIBUTION = (1000, 0, 180)
+
 
 # Yaml parser
 def favorites_subjects_type(yaml):
@@ -57,5 +60,9 @@ def subjects_distribution_params(yaml, string):
 
 def age_distribution(yaml, string):
     return yaml.get("distributions").get("age_distribution").get("params").get(string)
+
+
+def likes_distribution(yaml, string):
+    return yaml.get("distributions").get("likes_distribution").get("params").get(string)
 
 

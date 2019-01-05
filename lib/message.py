@@ -12,7 +12,7 @@ class Message:
         self.city = str()
         self.date = None
         self.subjects = []
-        self.like = int()
+        self.likes = int()
         self.user = None
         self.number_of_subjects = 0
 
@@ -64,6 +64,9 @@ class Message:
         subjects = list(random.choice(dataset_manager.list_of_subjects, number_of_subjects, p=list_of_subject_probabilities))
         self.subjects = subjects
         self.number_of_subjects = len(subjects)
+
+    def add_likes_to_message(self, number_of_likes_distributions):
+        self.likes = int(round(number_of_likes_distributions.rvs(1)[0]))
 
 
 

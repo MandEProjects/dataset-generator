@@ -52,6 +52,12 @@ distributions:
       lower_bound: 20
       upper_bound: 60
 
+  likes_distribution:
+    params:
+      lower_bound: 0
+      upper_bound: 1000
+      scale: 180
+
 message_generation:
   granularity: 'h'
   path: 'datasets/message_distribution.txt'

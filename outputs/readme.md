@@ -8,5 +8,5 @@ Make sure that Elasticsearch is running on the port 9200 on localhost
 Then type the following to index the messages:
 
 ```
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@messages.json"
+curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@messages.json" 
 ```

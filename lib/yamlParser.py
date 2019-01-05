@@ -29,6 +29,8 @@ class YamlParser:
         self.age_mean, self.age_sd, self.age_lower_bound, self.age_upper_bound \
             = self.extract_data_age_prob(yaml_config)
 
+        self.likes_upper_bound, self.likes_lower_bound, self.likes_scale = self.extract_data_likes_prob(yaml_config)
+
         self.message_distribution, self.granularity, self.noise = self.message_distribution(yaml_config)
 
         self.prob_message_by_hour = Message.prob_message_by_hour(self.message_distribution, self.noise)
@@ -135,5 +137,16 @@ class YamlParser:
             return utilities.preparation_age_return((mean, sd, lower_bound, upper_bound))
         except:
             print('error')
-            return utilities.AGE_DISTRIBUTION
+            return static.AGE_DISTRIBUTION
+
+    @staticmethod
+    def extract_data_likes_prob(yaml_config):
+        try:
+            upper_bound = static.likes_distribution(yaml_config, static.UPPER_BOUND)
+            lower_bound = static.likes_distribution(yaml_config, static.LOWER_BOUND)
+            scale = static.likes_distribution(yaml_config, static.SCALE)
+            return utilities.preparation_likes_return((upper_bound, lower_bound, scale))
+        except:
+            print('error')
+            return static.LIKES_DISTRIBUTION
 

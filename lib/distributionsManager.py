@@ -8,6 +8,7 @@ class DistributionsManager:
         self.favorite_subjects_per_user_distribution = self.build_favorite_subjects_distribution(yaml_parser)
         self.subjects_distribution = self.build_subjects_distribution(yaml_parser)
         self.age_distribution = self.build_age_distribution(yaml_parser)
+        self.likes_distribution = self.build_likes_distribution(yaml_parser)
 
     @staticmethod
     def build_favorite_subjects_distribution(yaml_parser):
@@ -67,10 +68,14 @@ class DistributionsManager:
                                               static.EXPONENTIAL_DISTRIBUTION[5])
             return s
 
-
     @staticmethod
     def build_age_distribution(yaml_parser):
         return get_truncated_normal(yaml_parser.age_mean,
                                     yaml_parser.age_sd,
                                     yaml_parser.age_lower_bound,
                                     yaml_parser.age_upper_bound)
+
+    @staticmethod
+    def build_likes_distribution(yaml_parser):
+        return get_truncated_exponential(yaml_parser.likes_upper_bound, yaml_parser.likes_lower_bound,
+                                         yaml_parser.likes_scale)

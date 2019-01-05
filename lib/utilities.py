@@ -27,6 +27,7 @@ def generate_bulk(messages):
             outfile.write("\n")
             outfile.write(json.dumps({"date": i.date.isoformat(),
                                       "subjects": i.subjects,
+                                      "likes": i.likes,
                                       "number_of_subjects": i.number_of_subjects,
                                       "user": {"name": i.user.firstName + " " + i.user.lastName,
                                                "prob": i.user.probability,
@@ -40,8 +41,10 @@ def generate_bulk(messages):
 
 # Make the function truncnorm more intuitive
 # Truncnorm doc: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.truncnorm.html
-def get_truncated_normal(mean, sd, lower_bound, upper_bound):
-    return truncnorm((lower_bound - mean) / sd, (upper_bound - mean) / sd, loc=mean, scale=sd)
+def get_truncated_normal(mean, sd, lower_bound, upper_bound, loc=None):
+    if loc is None:
+        loc = mean
+    return truncnorm((lower_bound - mean) / sd, (upper_bound - mean) / sd, loc=loc, scale=sd)
 
 
 # Make the function truncexpon more intuitive
@@ -69,6 +72,15 @@ def preparation_age_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.AGE_DISTRIBUTION[i])
+    print(tuple_return)
+    return tuple(tuple_return)
+
+
+# Return likes
+def preparation_likes_return(tuple_test):
+    tuple_return = list()
+    for i in range(len(tuple_test)):
+        tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.LIKES_DISTRIBUTION[i])
     print(tuple_return)
     return tuple(tuple_return)
 
