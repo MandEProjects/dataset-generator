@@ -2,6 +2,13 @@ import elasticsearch
 from elasticsearch.helpers import bulk
 
 
+def mapping(index_name):
+    es = elasticsearch.Elasticsearch()
+
+    map = {"mappings": {"_doc": {"properties": {"location": {"type": "geo_point"}}}}}
+    es.indices.create(index=index_name, body=map)
+
+
 def insert_elasticsearch(json_list, index_name):
     es = elasticsearch.Elasticsearch()
 
@@ -21,3 +28,5 @@ def override(index_name):
     es = elasticsearch.Elasticsearch()
 
     es.indices.delete(index=index_name, ignore=[400, 404])
+    mapping(index_name)
+

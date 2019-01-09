@@ -19,13 +19,14 @@ prob_users = User.probability_message_user(yp.number_users)
 
 for i in range(yp.number_messages):
     message = Message()
-    message.date = message.add_date_to_message(yp)
+    message.add_date_to_message(yp)
     indices = int(random.choice(len(prob_users), 1, p=prob_users)[0])
     user = list_users[indices]
     user.probability = prob_users[indices]
     message.user = user
     message.add_subjects_to_message(distributions_manager.subjects_distribution, datasets_manager, user.favorite_subjects)
     message.add_likes_to_message(distributions_manager.build_likes_distribution(yp))
+    message.add_geo_to_message(yp)
     message_list.append(message)
 
 print("Message generation is done")
@@ -39,12 +40,13 @@ else:
         output.override(yp.index_name)
     json_list = []
     for message in message_list:
+        print(message.__dict__())
         try:
             json_list.append(message.__dict__())
         except:
             print("Error with dict message")
             exit()
-    output.insert_elasticsearch(json_lst, yp.index_name)
+    output.insert_elasticsearch(json_list, yp.index_name)
 
 
 print("Program took: {0}".format(time.time() - t1))

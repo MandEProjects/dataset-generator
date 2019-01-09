@@ -1,6 +1,6 @@
 from lib.message import Message
 from lib.distributionsManager import DistributionsManager
-import yaml
+import yaml, json
 from lib import static, utilities
 
 
@@ -39,6 +39,19 @@ class YamlParser:
                                                      self.message_distribution, self.noise)
 
         self.index_name, self.index, self.override = self.index_elasticsearch(yaml_config)
+
+        self.localisations = self.localisation_messages()
+
+    @staticmethod
+    def localisation_messages():
+        f = open(static.LOCALISATION)
+        choices = list()
+        for i in f:
+            j_content = json.loads(i)
+        for i in j_content:
+            if i != {}:
+                choices.append(i.get('location'))
+        return choices
 
     @staticmethod
     def index_elasticsearch(yaml_config):

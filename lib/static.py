@@ -1,5 +1,6 @@
 # Path static
 
+LOCALISATION = "outputs/geoip.json"
 FIRST_NAME = 'datasets/firstName.txt'
 LAST_NAME = 'datasets/lastName.txt'
 

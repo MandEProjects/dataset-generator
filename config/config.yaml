@@ -15,10 +15,10 @@ number_user : 1000
 index_name: 'messages'
 
 # Do you want to index it or have it on a file
-index: false
+index: true
 
 # Override the index
-override: false
+override: true
 
 # Add users
 names :
