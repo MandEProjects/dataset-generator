@@ -14,11 +14,15 @@ class Message:
         self.subjects = []
         self.likes = int()
         self.user = None
+        self.country = None
+        self.continent = None
         self.number_of_subjects = 0
 
     def __dict__(self):
         dic = {
             "city": self.city,
+            "country": self.country,
+            "continent": self.continent,
             "number_of_subjects": self.number_of_subjects,
             "location": self.geo,
             "subjects": self.subjects,
@@ -42,7 +46,6 @@ class Message:
             date = date_begin + timedelta(days=i)
             prob_by_dates.update({date: self.prob_message_by_hour(message_distribution, noise)})
         return prob_by_dates
-
 
     def add_date_to_message(self, yp):
         random_days = int(random.randint(yp.total_days + 1, size=1)[0])
@@ -69,7 +72,12 @@ class Message:
         self.likes = int(round(number_of_likes_distributions.rvs(1)[0]))
 
     def add_geo_to_message(self, yp):
-        self.geo = rd.choice(yp.localisations)
+        geo = rd.choice(yp.localisations)
+        self.continent = geo[0]
+        self.country = geo[1]
+        self.city = geo[2]
+        self.geo = {'lon': geo[3], 'lat': geo[4]}
+
 
 
 

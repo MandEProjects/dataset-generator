@@ -44,14 +44,15 @@ class YamlParser:
 
     @staticmethod
     def localisation_messages():
+
         f = open(static.LOCALISATION)
-        choices = list()
-        for i in f:
-            j_content = json.loads(i)
-        for i in j_content:
-            if i != {}:
-                choices.append(i.get('location'))
-        return choices
+        data = json.load(f)
+        geo_list = []
+        for key in data.keys():
+            key_list = [eval(key)] #* data.get(key)
+            geo_list += key_list
+
+        return geo_list
 
     @staticmethod
     def index_elasticsearch(yaml_config):
@@ -162,4 +163,5 @@ class YamlParser:
         except:
             print('error')
             return static.LIKES_DISTRIBUTION
+
 
