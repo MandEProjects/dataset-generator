@@ -1,6 +1,6 @@
 # Path static
 
-LOCALISATION = "datasets/geo.json"
+LOCALISATION = "datasets/data.json"
 FIRST_NAME = 'datasets/firstName.txt'
 LAST_NAME = 'datasets/lastName.txt'
 

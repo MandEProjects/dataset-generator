@@ -5,7 +5,7 @@ from elasticsearch.helpers import bulk
 def mapping(index_name):
     es = elasticsearch.Elasticsearch()
     print("MAPPING")
-    map = {"mappings": {"_doc": {"properties": {"message_location": {"type": "geo_point"},
+    map = {"mappings": {"_doc": {"properties": {"location": {"type": "geo_point"},
                                                 "user_location": {"type": "geo_point"}}}}}
     es.indices.create(index=index_name, body=map)
 

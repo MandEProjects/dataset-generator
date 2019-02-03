@@ -16,6 +16,9 @@ class Message:
         self.likes = int()
         self.user = None
         self.country = None
+        self.region = None
+        self.country_code2 = None
+        self.country_code3 = None
         self.continent = None
         self.number_of_subjects = 0
 
@@ -25,10 +28,13 @@ class Message:
             "country": self.country,
             "continent": self.continent,
             "number_of_subjects": self.number_of_subjects,
-            "message_location": self.geo,
+            "location": self.geo,
             "subjects": self.subjects,
             "like": self.likes,
-            "date": self.date.isoformat()
+            "date": self.date.isoformat(),
+            "country_code2": self.country_code2,
+            "country_code3": self.country_code3,
+            "region": self.region
         }
         dic.update(self.user.elastic_mapping())
         return dic
@@ -80,12 +86,18 @@ class Message:
             self.country = user.country
             self.geo = user.location
             self.city = user.city
+            self.region = user.region
+            self.country_code2 = user.country_code2
+            self.country_code3 = user.country_code3
         else:
             geo = rd.choice(yp.localisations)
             self.continent = geo[0]
             self.country = geo[1]
-            self.city = geo[2]
-            self.geo = {'lon': geo[3], 'lat': geo[4]}
+            self.region = geo[2]
+            self.city = geo[3]
+            self.geo = {'lon': geo[4], 'lat': geo[5]}
+            self.country_code2 = geo[6]
+            self.country_code3 = geo[7]
 
 
 
