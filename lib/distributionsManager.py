@@ -9,6 +9,8 @@ class DistributionsManager:
         self.subjects_distribution = self.build_subjects_distribution(yaml_parser)
         self.age_distribution = self.build_age_distribution(yaml_parser)
         self.likes_distribution = self.build_likes_distribution(yaml_parser)
+        self.followers_distribution = self.build_followers_distribution(yaml_parser)
+        self.salary_distribution_per_occupation = self.build_compensations_distribution(yaml_parser)
 
     @staticmethod
     def build_favorite_subjects_distribution(yaml_parser):
@@ -76,6 +78,19 @@ class DistributionsManager:
                                     yaml_parser.age_upper_bound)
 
     @staticmethod
+    def build_compensations_distribution(yaml_parser):
+        salary_distribution_per_occupation = {}
+        for occupation in yaml_parser.compensations_distribution:
+            prob = yaml_parser.compensations_distribution[occupation]
+            salary_distribution_per_occupation[occupation] = get_truncated_normal(prob[0], prob[1], prob[2], prob[3])
+        return salary_distribution_per_occupation
+
+    @staticmethod
     def build_likes_distribution(yaml_parser):
         return get_truncated_exponential(yaml_parser.likes_upper_bound, yaml_parser.likes_lower_bound,
                                          yaml_parser.likes_scale)
+
+    @staticmethod
+    def build_followers_distribution(yaml_parser):
+        return get_truncated_exponential(yaml_parser.followers_upper_bound, yaml_parser.followers_lower_bound,
+                                         yaml_parser.followers_scale)

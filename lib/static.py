@@ -37,9 +37,13 @@ EXPONENTIAL_DISTRIBUTION = (EXPONENTIAL, None, None, 1, 10, 2)
 
 # mean - sd - lower_bound - upper_bound
 AGE_DISTRIBUTION = (37, 6, 20, 60)
+COMPENSATION_DISTRIBUTION = (100000, 5000, 80000, 120000)
 
 # upper_bound, lower_bound, scale
 LIKES_DISTRIBUTION = (1000, 0, 180)
+
+# upper_bound, lower_bound, scale
+FOLLOWERS_DISTRIBUTION = (3000, 0, 500)
 
 
 # Yaml parser
@@ -63,7 +67,15 @@ def age_distribution(yaml, string):
     return yaml.get("distributions").get("age_distribution").get("params").get(string)
 
 
+def compensation_distribution(yaml, occupation, string):
+    return yaml.get("distributions").get("compensation").get(occupation).get("params").get(string)
+
+
 def likes_distribution(yaml, string):
     return yaml.get("distributions").get("likes_distribution").get("params").get(string)
+
+
+def follower_distribution(yaml, string):
+    return yaml.get("distributions").get("followers_distribution").get("params").get(string)
 
 

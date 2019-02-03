@@ -58,7 +58,127 @@ distributions:
       upper_bound: 1000
       scale: 180
 
+  followers_distribution:
+    params:
+      lower_bound: 0
+      upper_bound: 3000
+      scale: 500
+
+  compensation:
+    marketing:
+      params:
+        mean: 100000
+        sd: 5000
+        lower_bound: 80000
+        upper_bound: 140000
+
+    consultant:
+      params:
+        mean: 120000
+        sd: 7000
+        lower_bound: 100000
+        upper_bound: 160000
+
+    security_engineer:
+      params:
+        mean: 130000
+        sd: 7000
+        lower_bound: 95000
+        upper_bound: 150000
+
+    technical_writer:
+      params:
+        mean: 90000
+        sd: 5000
+        lower_bound: 75000
+        upper_bound: 110000
+
+    software_engineer:
+      params:
+        mean: 140000
+        sd: 8000
+        lower_bound: 100000
+        upper_bound: 180000
+
+    support:
+      params:
+        mean: 140000
+        sd: 10000
+        lower_bound: 110000
+        upper_bound: 160000
+
+    sales:
+      params:
+        mean: 120000
+        sd: 15000
+        lower_bound: 60000
+        upper_bound: 220000
+
+    customer_success:
+      params:
+        mean: 100000
+        sd: 5000
+        lower_bound: 80000
+        upper_bound: 1200000
+
+    recruiter:
+      params:
+        mean: 90000
+        sd: 3000
+        lower_bound: 70000
+        upper_bound: 110000
+
+    director:
+      params:
+        mean: 250000
+        sd: 8000
+        lower_bound: 200000
+        upper_bound: 300000
+
+    manager:
+      params:
+        mean: 160000
+        sd: 7000
+        lower_bound: 140000
+        upper_bound: 180000
+
+    sales_engineer:
+      params:
+        mean: 120000
+        sd: 6000
+        lower_bound: 100000
+        upper_bound: 140000
+
+    coordinator:
+      params:
+        mean: 100000
+        sd: 5000
+        lower_bound: 80000
+        upper_bound: 120000
+
+    legal:
+      params:
+        mean: 140000
+        sd: 5000
+        lower_bound: 110000
+        upper_bound: 160000
+
+    qa_engineer:
+      params:
+        mean: 120000
+        sd: 5000
+        lower_bound: 90000
+        upper_bound: 150000
+
+    board:
+      params:
+        mean: 300000
+        sd: 15000
+        lower_bound: 250000
+        upper_bound: 350000
+
 message_generation:
   granularity: 'h'
   path: 'datasets/message_distribution.txt'
   noise: 0.25
+  user_occupation: 'datasets/occupation_distribution.json'

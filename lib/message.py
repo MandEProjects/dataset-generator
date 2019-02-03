@@ -68,8 +68,8 @@ class Message:
         self.subjects = subjects
         self.number_of_subjects = len(subjects)
 
-    def add_likes_to_message(self, number_of_likes_distributions):
-        self.likes = int(round(number_of_likes_distributions.rvs(1)[0]))
+    def add_likes_to_message(self, user, number_of_likes_distributions):
+        self.likes = int(round(number_of_likes_distributions.rvs(1)[0])) * int((user.followers + 100)/100)
 
     def add_geo_to_message(self, yp):
         geo = rd.choice(yp.localisations)
