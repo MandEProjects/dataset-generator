@@ -11,6 +11,10 @@ SIGMA = 0.5
 SIZE_GAUSSIAN = 1000000
 
 
+# probability that the localisation of the message will be the localisation of the user
+PROBABILITY_MESSAGE_USER_LOCALISATION = 0.6
+
+
 # Distribution manager
 DATE = 'date'
 DAYS = 'days'
