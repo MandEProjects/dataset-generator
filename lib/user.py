@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from lib import utilities
 from lib import static
+import random as rd
 
 
 class User:
@@ -17,6 +18,26 @@ class User:
             distributions_manager.favorite_subjects_per_user_distribution, datasets_manager.list_of_subjects)
         self.occupation, self.compensation = self.define_occupations_and_compensation(distributions_manager.salary_distribution_per_occupation)
         self.followers = int(round(distributions_manager.followers_distribution.rvs(1)[0]))
+
+        self.country = None
+        self.continent = None
+        self.location = dict()
+        self.city = str()
+
+    def elastic_mapping(self):
+        dic = {
+            "last_name": self.lastName,
+            "firstName": self.firstName,
+            "age": self.age,
+            "followers": self.followers,
+            "favorite_subjects": self.favorite_subjects,
+            "number_of_favorite_subjects": self.number_of_favorite_subjects,
+            "user_country": self.country,
+            "user_continent": self.continent,
+            "user_location": self.location,
+            "user_city": self.city
+        }
+        return dic
 
     @staticmethod
     def define_favorite_subjects(number_of_favorite_subjects_distributions, list_of_subjects):
@@ -59,6 +80,7 @@ class User:
 
         for i in range(yp.number_users - len(list_users)):
             people = User(distributions_manager, datasets_manager)
+            people.geo_user(yp.localisations)
             people.firstName = first_names[random.randint(0, len(first_names) - 1)]
             people.lastName = last_names[random.randint(0, len(last_names) - 1)]
             while (people.firstName, people.lastName) in check:
@@ -88,3 +110,9 @@ class User:
 
         return [i/total for i in probability]
 
+    def geo_user(self, localisation):
+        geo = rd.choice(localisation)
+        self.continent = geo[0]
+        self.country = geo[1]
+        self.city = geo[2]
+        self.location = {'lon': geo[3], 'lat': geo[4]}

@@ -1,4 +1,5 @@
 from lib.user import User
+from lib import static
 from numpy import random
 from datetime import datetime, timedelta
 from lib.utilities import get_truncated_normal
@@ -24,12 +25,12 @@ class Message:
             "country": self.country,
             "continent": self.continent,
             "number_of_subjects": self.number_of_subjects,
-            "location": self.geo,
+            "message_location": self.geo,
             "subjects": self.subjects,
             "like": self.likes,
             "date": self.date.isoformat()
         }
-        dic.update(self.user.__dict__)
+        dic.update(self.user.elastic_mapping())
         return dic
 
     @staticmethod
@@ -71,12 +72,20 @@ class Message:
     def add_likes_to_message(self, user, number_of_likes_distributions):
         self.likes = int(round(number_of_likes_distributions.rvs(1)[0])) * int((user.followers + 100)/100)
 
-    def add_geo_to_message(self, yp):
-        geo = rd.choice(yp.localisations)
-        self.continent = geo[0]
-        self.country = geo[1]
-        self.city = geo[2]
-        self.geo = {'lon': geo[3], 'lat': geo[4]}
+    # % of chance that the user localisation will be the localisation of the message
+    def add_geo_to_message(self, yp, user):
+        prob = rd.random()
+        if prob < static.PROBABILITY_MESSAGE_USER_LOCALISATION:
+            self.continent = user.continent
+            self.country = user.country
+            self.geo = user.location
+            self.city = user.city
+        else:
+            geo = rd.choice(yp.localisations)
+            self.continent = geo[0]
+            self.country = geo[1]
+            self.city = geo[2]
+            self.geo = {'lon': geo[3], 'lat': geo[4]}
 
 
 
