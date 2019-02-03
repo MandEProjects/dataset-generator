@@ -16,6 +16,8 @@ class User:
         self.probability = int()
         self.favorite_subjects, self.number_of_favorite_subjects = self.define_favorite_subjects(
             distributions_manager.favorite_subjects_per_user_distribution, datasets_manager.list_of_subjects)
+        self.occupation, self.compensation = self.define_occupations_and_compensation(distributions_manager.salary_distribution_per_occupation)
+        self.followers = int(round(distributions_manager.followers_distribution.rvs(1)[0]))
 
         self.country = None
         self.country_code2 = None
@@ -48,6 +50,14 @@ class User:
         number_of_subjects = int(round(number_of_favorite_subjects_distributions.rvs(1)[0]))
         subjects = list(np.random.choice(list_of_subjects, number_of_subjects))
         return subjects, len(subjects)
+
+    @staticmethod
+    def define_occupations_and_compensation(salary_distribution_per_occupation):
+        occupation = "Marketing"
+        occupation_normalized = occupation.lower().replace(' ', '_')
+        compensation = int(round(salary_distribution_per_occupation[occupation_normalized].rvs(1)[0]))
+        print(occupation, compensation)
+        return occupation, compensation
 
     def __str__(self):
         return 'firstName: {}, lastName: {}, age: {}, followers: {}'\

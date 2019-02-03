@@ -76,11 +76,29 @@ def preparation_age_return(tuple_test):
     return tuple(tuple_return)
 
 
+# Return compensation
+def preparation_compensation_return(tuple_test):
+    tuple_return = list()
+    for i in range(len(tuple_test)):
+        tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.COMPENSATION_DISTRIBUTION[i])
+    print(tuple_return)
+    return tuple(tuple_return)
+
+
 # Return likes
 def preparation_likes_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.LIKES_DISTRIBUTION[i])
+    print(tuple_return)
+    return tuple(tuple_return)
+
+
+# Return likes
+def preparation_followers_return(tuple_test):
+    tuple_return = list()
+    for i in range(len(tuple_test)):
+        tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.FOLLOWERS_DISTRIBUTION[i])
     print(tuple_return)
     return tuple(tuple_return)
 

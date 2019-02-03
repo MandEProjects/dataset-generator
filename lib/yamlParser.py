@@ -31,6 +31,10 @@ class YamlParser:
 
         self.likes_upper_bound, self.likes_lower_bound, self.likes_scale = self.extract_data_likes_prob(yaml_config)
 
+        self.followers_upper_bound, self.followers_lower_bound, self.followers_scale = self.extract_data_followers_prob(yaml_config)
+
+        self.compensations_distribution = self.extract_compensations_prob(yaml_config)
+
         self.message_distribution, self.granularity, self.noise = self.message_distribution(yaml_config)
 
         self.prob_message_by_hour = Message.prob_message_by_hour(self.message_distribution, self.noise)
@@ -164,4 +168,31 @@ class YamlParser:
             print('error')
             return static.LIKES_DISTRIBUTION
 
+    @staticmethod
+    def extract_compensations_prob(yaml_config):
+        with open(yaml_config['message_generation']['user_occupation']) as f:
+            occupations = json.load(f)
+        compensations_prob = {}
+        for occupation in occupations:
+            occupation_normalized = occupation.lower().replace(' ', '_')
+            try:
+                mean = static.compensation_distribution(yaml_config, occupation_normalized, static.MEAN)
+                sd = static.compensation_distribution(yaml_config, occupation_normalized, static.SD)
+                upper_bound = static.compensation_distribution(yaml_config, occupation_normalized, static.UPPER_BOUND)
+                lower_bound = static.compensation_distribution(yaml_config, occupation_normalized, static.LOWER_BOUND)
+                compensations_prob[occupation_normalized] = utilities.preparation_compensation_return((mean, sd, lower_bound, upper_bound))
+            except:
+                print('error')
+                compensations_prob[occupation_normalized] = static.COMPENSATION_DISTRIBUTION
+        return compensations_prob
 
+    @staticmethod
+    def extract_data_followers_prob(yaml_config):
+        try:
+            upper_bound = static.follower_distribution(yaml_config, static.UPPER_BOUND)
+            lower_bound = static.follower_distribution(yaml_config, static.LOWER_BOUND)
+            scale = static.follower_distribution(yaml_config, static.SCALE)
+            return utilities.preparation_followers_return((upper_bound, lower_bound, scale))
+        except:
+            print('error')
+            return static.FOLLOWERS_DISTRIBUTION
