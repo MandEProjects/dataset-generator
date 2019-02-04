@@ -301,7 +301,7 @@ MAPPING_USER = {
         "followers": {
           "type": "integer"
         },
-        "geo_user": {
+        "geo": {
           "properties": {
             "city": {
               "type": "text",

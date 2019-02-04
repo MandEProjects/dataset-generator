@@ -1,6 +1,6 @@
 # Date : starting date for the data set of tweets.
 # Example : YYYY-MM-DD
-date : 2019-01-01
+date : 2018-10-01
 
 # Duration of the data set
 days : 90

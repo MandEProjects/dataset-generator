@@ -33,7 +33,6 @@ class User:
             "average_likes": (sum_likes/len(list_message)) if len(list_message) != 0 else 0,
             "number_of_messages": len(list_message),
             "sum_of_likes": sum_likes,
-            "list_subjects": [message.subjects for message in list_message],
             "average_time_between": self.message_date_average(list_message)
         }
         dic.update(self.elastic_mapping_message())
