@@ -1,28 +1,30 @@
 # Date : starting date for the data set of tweets.
 # Example : YYYY-MM-DD
-date : 2018-10-08
+date : 2019-01-01
 
 # Duration of the data set
-days : 30
+days : 90
 
 # Number of tweets
-message_number : 200000
+message_number : 900000
 
 # Number of user
-number_user : 1000
+number_user : 5000
 
 # Name Index
-index_name: 'messages'
+index_message: 'user_messages'
+index_user: 'users'
+type_doc: '_doc'
 
 # Do you want to index it or have it on a file
 index: true
 
+# Do you want to have bulk files
+bulk: true
+
 # Override the index
 override: true
 
-# Add users
-names :
-  - !!python/tuple ['Shay','Banon']
 
 distributions:
   # Configure the distribution of the number of subjects to allocate to a specific user
@@ -176,6 +178,13 @@ distributions:
         sd: 15000
         lower_bound: 250000
         upper_bound: 350000
+
+    human_resources:
+      params:
+        mean: 80000
+        sd: 2000
+        lower_bound: 60000
+        upper_bound: 90000
 
 message_generation:
   granularity: 'h'

@@ -2,7 +2,7 @@ from lib.user import User
 from lib import static
 from numpy import random
 from datetime import datetime, timedelta
-from lib.utilities import get_truncated_normal
+import secrets
 import random as rd
 
 
@@ -10,6 +10,7 @@ class Message:
 
     def __init__(self):
         self.geo = dict()
+        self.id = secrets.token_urlsafe()
         self.city = str()
         self.date = None
         self.subjects = []
@@ -18,25 +19,26 @@ class Message:
         self.country = None
         self.region = None
         self.country_code2 = None
-        self.country_code3 = None
         self.continent = None
         self.number_of_subjects = 0
 
     def __dict__(self):
         dic = {
-            "city": self.city,
-            "country": self.country,
-            "continent": self.continent,
-            "number_of_subjects": self.number_of_subjects,
-            "location": self.geo,
+            "message_id": self.id,
             "subjects": self.subjects,
-            "like": self.likes,
+            "likes": self.likes,
             "date": self.date.isoformat(),
-            "country_code2": self.country_code2,
-            "country_code3": self.country_code3,
-            "region": self.region
+            "number_of_subjects": self.number_of_subjects,
+            "geo": {
+                "city": self.city,
+                "country": self.country,
+                "continent": self.continent,
+                "location": self.geo,
+                "country_code2": self.country_code2,
+                "region": self.region
+            }
         }
-        dic.update(self.user.elastic_mapping())
+        dic.update({"user": self.user.elastic_mapping_message()})
         return dic
 
     @staticmethod
@@ -88,7 +90,6 @@ class Message:
             self.city = user.city
             self.region = user.region
             self.country_code2 = user.country_code2
-            self.country_code3 = user.country_code3
         else:
             geo = rd.choice(yp.localisations)
             self.continent = geo[0]
@@ -97,8 +98,6 @@ class Message:
             self.city = geo[3]
             self.geo = {'lon': geo[4], 'lat': geo[5]}
             self.country_code2 = geo[6]
-            self.country_code3 = geo[7]
-
 
 
 

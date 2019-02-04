@@ -42,7 +42,7 @@ class YamlParser:
         self.prob_by_dates = Message().prob_by_dates(self.total_days, self.beginning_date,
                                                      self.message_distribution, self.noise)
 
-        self.index_name, self.index, self.override = self.index_elasticsearch(yaml_config)
+        self.doc_type, self.bulk, self.index_user, self.index_message, self.index, self.override = self.index_elasticsearch(yaml_config)
 
         self.localisations = self.localisation_messages()
 
@@ -60,10 +60,13 @@ class YamlParser:
 
     @staticmethod
     def index_elasticsearch(yaml_config):
-        index_name = static.INDEX_NAME if yaml_config['index_name'] is None else yaml_config['index_name']
+        index_message = static.INDEX_MESSAGE if yaml_config['index_message'] is None else yaml_config['index_message']
+        index_user = static.INDEX_USER if yaml_config['index_user'] is None else yaml_config['index_user']
         index = bool(True if yaml_config['index'] is None else yaml_config['index'])
         override = bool(True if yaml_config['override'] is None else yaml_config['override'])
-        return index_name, index, override
+        bulk = True if yaml_config["bulk"] is None else yaml_config['bulk']
+        type_doc = '_doc' if yaml_config["type_doc"] is None else yaml_config['type_doc']
+        return type_doc, bulk, index_user, index_message, index, override
 
     @staticmethod
     def message_distribution(yaml_config):

@@ -1,7 +1,7 @@
 import random
+import json
+import secrets
 import numpy as np
-import matplotlib.pyplot as plt
-from lib import utilities
 from lib import static
 import random as rd
 
@@ -18,30 +18,46 @@ class User:
             distributions_manager.favorite_subjects_per_user_distribution, datasets_manager.list_of_subjects)
         self.occupation, self.compensation = self.define_occupations_and_compensation(distributions_manager.salary_distribution_per_occupation)
         self.followers = int(round(distributions_manager.followers_distribution.rvs(1)[0]))
-
+        self.id = secrets.token_urlsafe()
         self.country = None
         self.country_code2 = None
-        self.country_code3 = None
         self.continent = None
         self.region = None
         self.location = dict()
         self.city = str()
 
-    def elastic_mapping(self):
+    def elastic_mapping_user_centric(self, list_message):
+        sum_likes = sum([message.likes for message in list_message])
         dic = {
+            "salary": self.compensation,
+            "average_likes": (sum_likes/len(list_message)) if len(list_message) != 0 else 0,
+            "number_of_messages": len(list_message),
+            "sum_of_likes": sum_likes,
+            "list_subjects": [message.subjects for message in list_message],
+            "average_time_between": self.message_date_average(list_message)
+        }
+        dic.update(self.elastic_mapping_message())
+        return dic
+
+    def elastic_mapping_message(self):
+        dic = {
+            "user_id": self.id,
             "last_name": self.lastName,
-            "firstName": self.firstName,
+            "occupation": self.occupation,
+            "first_name": self.firstName,
             "age": self.age,
             "followers": self.followers,
             "favorite_subjects": self.favorite_subjects,
+            "favorite_subjects_as_string": ' '.join(self.favorite_subjects),
             "number_of_favorite_subjects": self.number_of_favorite_subjects,
-            "user_country": self.country,
-            "user_continent": self.continent,
-            "user_location": self.location,
-            "user_city": self.city,
-            "user_country_code2": self.country_code2,
-            "user_country_code3": self.country_code3,
-            "user_region": self.region
+            "geo": {
+                "country": self.country,
+                "continent": self.continent,
+                "location": self.location,
+                "city": self.city,
+                "country_code2": self.country_code2,
+                "region": self.region
+            }
         }
         return dic
 
@@ -53,10 +69,17 @@ class User:
 
     @staticmethod
     def define_occupations_and_compensation(salary_distribution_per_occupation):
-        occupation = "Marketing"
+        f = open(static.OCCUPATION)
+        data = json.load(f)
+        geo_list = []
+        for key in data.keys():
+            key_list = [key] * data.get(key)
+            geo_list += key_list
+        occupation = rd.choice(geo_list)
         occupation_normalized = occupation.lower().replace(' ', '_')
         compensation = int(round(salary_distribution_per_occupation[occupation_normalized].rvs(1)[0]))
-        print(occupation, compensation)
+        modulo = compensation % 100
+        compensation = compensation - modulo if compensation < 50 else compensation - modulo + 100
         return occupation, compensation
 
     def __str__(self):
@@ -83,6 +106,7 @@ class User:
             people.firstName, people.lastName = i
             peoples.append(people)
             check.add((people.firstName, people.lastName))
+            people.geo_user(yp.localisations)
 
         for i in range(yp.number_users - len(list_users)):
             people = User(distributions_manager, datasets_manager)
@@ -124,4 +148,16 @@ class User:
         self.city = geo[3]
         self.location = {'lon': geo[4], 'lat': geo[5]}
         self.country_code2 = geo[6]
-        self.country_code3 = geo[7]
+
+    def message_date_average(self, list_message):
+        list_dates = [message.date for message in list_message]
+        list_dates.sort(reverse=True)
+        delta = list()
+        if len(list_dates) <= 1:
+            return None
+        if len(list_dates) == 2:
+            return (list_dates[0] - list_dates[1]).total_seconds()
+        for i in range(len(list_dates) - 2):
+            delta.append((list_dates[i] - list_dates[i + 1]).total_seconds())
+
+        return sum(delta)/len(delta)

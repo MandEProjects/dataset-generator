@@ -17,28 +17,6 @@ def list_repartition(a_list):
         print("%s: %s" % (key, repartition[key]))
 
 
-# Generate bulk to insert in elasticsearch
-def generate_bulk(messages):
-    # Put json bulk in a file
-    with open("outputs/messages.json", "w") as outfile:
-        count = 0
-        for i in messages:
-            outfile.write(json.dumps({"index": {"_index": "test", "_type": "_doc"}}))
-            outfile.write("\n")
-            outfile.write(json.dumps({"date": i.date.isoformat(),
-                                      "subjects": i.subjects,
-                                      "likes": i.likes,
-                                      "number_of_subjects": i.number_of_subjects,
-                                      "user": {"name": i.user.firstName + " " + i.user.lastName,
-                                               "prob": i.user.probability,
-                                               "favorite_subjects": i.user.favorite_subjects,
-                                               "number_of_favorite_subjects": i.user.number_of_favorite_subjects,
-                                               "age": i.user.age
-                                               }}))
-            outfile.write("\n")
-            count += 1
-
-
 # Make the function truncnorm more intuitive
 # Truncnorm doc: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.truncnorm.html
 def get_truncated_normal(mean, sd, lower_bound, upper_bound, loc=None):
@@ -63,7 +41,6 @@ def preparation_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else distribution[i])
-    print(tuple_return)
     return tuple(tuple_return)
 
 
@@ -72,7 +49,6 @@ def preparation_age_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.AGE_DISTRIBUTION[i])
-    print(tuple_return)
     return tuple(tuple_return)
 
 
@@ -81,7 +57,6 @@ def preparation_compensation_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.COMPENSATION_DISTRIBUTION[i])
-    print(tuple_return)
     return tuple(tuple_return)
 
 
@@ -90,7 +65,6 @@ def preparation_likes_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.LIKES_DISTRIBUTION[i])
-    print(tuple_return)
     return tuple(tuple_return)
 
 
@@ -99,7 +73,6 @@ def preparation_followers_return(tuple_test):
     tuple_return = list()
     for i in range(len(tuple_test)):
         tuple_return.append(tuple_test[i] if tuple_test[i] is not None else static.FOLLOWERS_DISTRIBUTION[i])
-    print(tuple_return)
     return tuple(tuple_return)
 
 

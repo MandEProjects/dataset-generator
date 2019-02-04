@@ -3,6 +3,7 @@
 LOCALISATION = "datasets/data.json"
 FIRST_NAME = 'datasets/firstName.txt'
 LAST_NAME = 'datasets/lastName.txt'
+OCCUPATION = "datasets/occupation_distribution.json"
 
 
 # mean and standard deviation for probability_message_user
@@ -14,6 +15,9 @@ SIZE_GAUSSIAN = 1000000
 # probability that the localisation of the message will be the localisation of the user
 PROBABILITY_MESSAGE_USER_LOCALISATION = 0.6
 
+# YAML
+INDEX_USER = "user_messages"
+INDEX_MESSAGE = "users"
 
 # Distribution manager
 DATE = 'date'
@@ -83,3 +87,306 @@ def follower_distribution(yaml, string):
     return yaml.get("distributions").get("followers_distribution").get("params").get(string)
 
 
+# MAPPING
+# MESSAGES
+MAPPING_MESSAGE = {
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "user": {
+          "properties": {
+            "age": {
+              "type": "integer"
+            },
+            "favorite_subjects": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "first_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "followers": {
+              "type": "integer"
+            },
+            "geo": {
+              "properties": {
+                "city": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "continent": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "country": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "country_code2": {
+                  "type": "keyword"
+                },
+                "country_code3": {
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "region": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
+            "last_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "occupation": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "favorite_subjects_as_string": {
+              "type": "text"
+            },
+            "number_of_favorite_subjects": {
+              "type": "byte"
+            },
+            "user_id": {
+              "type": "keyword"
+            }
+          }
+        },
+        "date": {
+          "type": "date"
+        },
+        "geo": {
+          "properties": {
+            "city": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "continent": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "country": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "country_code2": {
+              "type": "keyword"
+            },
+            "country_code3": {
+              "type": "keyword"
+            },
+            "location": {
+              "type": "geo_point"
+            },
+            "region": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "likes": {
+          "type": "integer"
+        },
+        "number_of_subjects": {
+          "type": "byte"
+        },
+        "subjects": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "message_id": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+
+# USER
+MAPPING_USER = {
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "age": {
+          "type": "byte"
+        },
+        "average_likes": {
+          "type": "float"
+        },
+        "average_time_between": {
+          "type": "float"
+        },
+        "favorite_subjects": {
+          "type": "keyword"
+        },
+        "first_name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "followers": {
+          "type": "integer"
+        },
+        "geo_user": {
+          "properties": {
+            "city": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "continent": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "country": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "country_code2": {
+              "type": "keyword"
+            },
+            "country_code3": {
+              "type": "keyword"
+            },
+            "location": {
+              "type": "geo_point"
+            },
+            "region": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "last_name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "number_of_favorite_subjects": {
+          "type": "byte"
+        },
+        "number_of_messages": {
+          "type": "long"
+        },
+        "occupation": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "salary": {
+          "type": "integer"
+        },
+        "sum_of_likes": {
+          "type": "long"
+        },
+        "user_id": {
+          "type": "keyword"
+        },
+        "favorite_subjects_as_string": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}
